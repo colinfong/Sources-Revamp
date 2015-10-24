@@ -1,24 +1,28 @@
 var express = require('express');
-var mysql      = require('mysql');
+var mysql  = require('mysql');
 var router = express.Router();
 
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'db',
-  password : 'bruins111'
+  password : 'bruins111',
+  database: 'test'
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
-    connection.start();
+    connection.connect();
     
-    var response = connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    var response = connection.query('SELECT * FROM sources', function(err, rows, fields) {
         if (err) throw err;
-        console.log('The solution is: ', rows[0].solution);
+        console.log(rows[0]["name"]);
+        return rows[0]["name"];
     });
     
-    res.render('index', { title: 'Express', response: response});
+    console.log(response);
+    
+    res.render('index', {title: 'Express', response: response});
     
     connection.end();
 });
