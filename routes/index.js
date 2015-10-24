@@ -14,17 +14,14 @@ router.get('/', function(req, res, next) {
     
     connection.connect();
     
-    var response = connection.query('SELECT * FROM sources', function(err, rows, fields) {
+    connection.query('SELECT * FROM sources', function(err, rows, fields) {
         if (err) throw err;
         console.log(rows[0]["name"]);
-        return rows[0]["name"];
+        res.render('index', {title: 'Express', response:rows[0]["name"]});
     });
     
-    console.log(response);
-    
-    res.render('index', {title: 'Express', response: response});
-    
     connection.end();
+
 });
 
 /* POST data to MySQL */
