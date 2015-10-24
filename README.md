@@ -21,10 +21,11 @@ A redo of the current internal [sources website](sources.dailybruin.com) to:
 
 Next, you'll need Node and npm to run a local server instance: 
 
-1. Install [Homebrew](http://brew.sh).
+1. Install [Homebrew](http://brew.sh)   .
 2. Install Node.js: `brew install node`
 3. Install npm: `brew install npm`
-4. Install dependencies with `npm intall`
+4. Install dependencies with `npm install`
+5. By default, you can start the server with `node ./bin/www`
 
 
 ### MySQL 
@@ -37,11 +38,11 @@ For local testing:
    `mysql.server restart`
 3. Change the password [for root](http://www.cyberciti.biz/faq/mysql-change-root-password/)
 4. Launch the MySQL REPL as `mysql` in Bash
-5. Create a new user `db` with password `bruins111`: `CREATE USER db IDENTIFIED
-   BY 'bruins111';`
-6. Give them privileges to the default `test` database (comes with a fresh
+5. Create a new user `db` with password `bruins111`: `CREATE USER db`
+6. Change the password for the new user: `update user set password=PASSWORD('bruins111') where User='db';`. ([Original tutorial](http://www.liquidweb.com/kb/change-a-password-for-mysql-on-linux-via-command-line/))
+7. Give them privileges to the default `test` database (comes with a fresh
    MySQL install): `GRANT ALL PRIVILEGES ON test.* TO db@localhost;`
-7. Head over to `app.js` to [set-up the database connection](http://expressjs.com/guide/database-integration.html#mysql). A more detailed example can be found [here](https://gist.github.com/clarle/3180770)
+8. Head over to `app.js` to [set-up the database connection](http://expressjs.com/guide/database-integration.html#mysql). A more detailed example can be found [here](https://gist.github.com/clarle/3180770)
 
 
 
