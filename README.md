@@ -25,8 +25,9 @@ Next, you'll need Node and npm to run a local server instance:
 2. Install Node.js: `brew install node`
 3. Install npm: `brew install npm`
 4. Install dependencies with `npm install`
-5. By default, you can start the server with `node ./bin/www`
+5. By default, you can start the server with `node ./bin/www`. When in doubt, consult the `start` field in `package.json` for the right start command.
 
+On Linux, you can also do a native install of NodeJS from [this tutorial]('http://www.hostingadvice.com/how-to/install-nodejs-ubuntu-14-04/'). 
 
 ### MySQL 
 
