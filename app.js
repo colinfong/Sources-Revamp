@@ -11,8 +11,8 @@ var users = require('./routes/users');
 var app = express();
 var connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'root',
-  password : 'bruin111'
+  user     : 'db',
+  password : 'bruins111'
 });
 
 // view engine setup
@@ -29,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+connection.connect();
+connection.end();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

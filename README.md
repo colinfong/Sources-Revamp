@@ -15,7 +15,7 @@ A redo of the current internal [sources website](sources.dailybruin.com) to:
 
 For local testing: 
 
-1. Install [Homebrew](http://brew.sh).
+1. You may use any instance of the MySQL server. On Mac, install [Homebrew](http://brew.sh) and continue to step 2. See [instructions for Linux](https://www.linode.com/docs/databases/mysql/how-to-install-mysql-on-ubuntu-14-04) and [instructions for Windows](http://corlewsolutions.com/articles/article-21-how-to-install-mysql-server-5-6-on-windows-7-development-machine), and continue to step 3.
 2. Use Homebrew to install MySQL: `brew install mysql`
 3. Start mysql with `mysql.server start` or if it's already running:
    `mysql.server restart`
