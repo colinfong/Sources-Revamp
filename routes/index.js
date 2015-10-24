@@ -12,15 +12,11 @@ var connection = mysql.createConnection({
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
-    connection.connect();
-    
     connection.query('SELECT * FROM sources', function(err, rows, fields) {
         if (err) throw err;
         console.log(rows[0]["name"]);
         res.render('index', {title: 'Express', response:rows[0]["name"]});
     });
-    
-    connection.end();
 
 });
 
