@@ -45,7 +45,30 @@ For local testing:
 8. Head over to `app.js` to [set-up the database connection](http://expressjs.com/guide/database-integration.html#mysql). A more detailed example can be found [here](https://gist.github.com/clarle/3180770)
 
 
+### Schema 
 
+1. Inside of the MySQL REPL, switch over to the `test` database: `use test`
+2. Create a new table: 
+
+```
+CREATE TABLE sources (
+    name VARCHAR(60),
+    title VARCHAR(80),
+    org VARCHAR(50),
+    workPhone VARCHAR(30),
+    cellPhone VARCHAR(30),
+    otherPhone VARCHAR(30),
+    workEmail VARCHAR(50),
+    personalEmail VARCHAR(50),
+    notes VARCHAR(500)
+);
+```
+3. And insert a test row: 
+
+``` 
+INSERT INTO sources
+VALUES ("Bob", "President", "USA", "805-111-2222", "555-555-5555", "000-000-0000", "bob@bob.com", "bobiscool@bob.com", "Bob is not cool");
+```
 
 
 
