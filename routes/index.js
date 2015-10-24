@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var mysql = requre('mysql');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
