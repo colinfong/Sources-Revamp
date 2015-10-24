@@ -42,7 +42,8 @@ For local testing:
 6. Change the password for the new user: `update mysql.user set password=PASSWORD('bruins111') where User='db';`. ([Original tutorial](http://www.liquidweb.com/kb/change-a-password-for-mysql-on-linux-via-command-line/))
 7. Give them privileges to the default `test` database (comes with a fresh
    MySQL install): `GRANT ALL PRIVILEGES ON test.* TO db@localhost;`
-8. Head over to `app.js` to [set-up the database connection](http://expressjs.com/guide/database-integration.html#mysql). A more detailed example can be found [here](https://gist.github.com/clarle/3180770)
+8. Reload all the permissions: `flush privileges;`
+9. Head over to `app.js` to [set-up the database connection](http://expressjs.com/guide/database-integration.html#mysql). A more detailed example can be found [here](https://gist.github.com/clarle/3180770)
 
 ### Schema 
 
