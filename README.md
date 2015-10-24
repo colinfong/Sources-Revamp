@@ -7,6 +7,9 @@ A redo of the current internal [sources website](sources.dailybruin.com) to:
 - Serve up a snazzy front-end
 - Make the list of sources editable
 
+A [comprehensive tutorial](https://www.terlici.com/2015/08/13/mysql-node-express.html) that may be helpful for understanding what
+we do here.
+
 
 ## Installation 
 
