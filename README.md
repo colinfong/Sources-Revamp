@@ -26,13 +26,13 @@ Next, you'll need Node and npm to run a local server instance:
 4. Install dependencies with `npm install`
 5. By default, you can start the server with `node ./bin/www`. When in doubt, consult the `start` field in `package.json` for the right start command.
 
-On Linux, you can also do a native install of NodeJS from [this tutorial]('http://www.hostingadvice.com/how-to/install-nodejs-ubuntu-14-04/'). 
+On Linux, you can also do a native install of NodeJS from [this tutorial](http://www.hostingadvice.com/how-to/install-nodejs-ubuntu-14-04/). 
 
 ### MySQL 
 
 For local testing: 
 
-1. You may use any instance of the MySQL server. On Mac, install [Homebrew](http://brew.sh) and continue to step 2. See [instructions for Linux](https://www.linode.com/docs/databases/mysql/how-to-install-mysql-on-ubuntu-14-04) and [instructions for Windows](http://corlewsolutions.com/articles/article-21-how-to-install-mysql-server-5-6-on-windows-7-development-machine), and continue to step 3.
+1. You may use any instance of the MySQL server. On Mac, install [Homebrew](http://brew.sh) and continue on to step 2. See [instructions for Linux](https://www.linode.com/docs/databases/mysql/how-to-install-mysql-on-ubuntu-14-04) and [instructions for Windows](http://corlewsolutions.com/articles/article-21-how-to-install-mysql-server-5-6-on-windows-7-development-machine), and continue to step 3.
 2. Use Homebrew to install MySQL: `brew install mysql`
 3. Start mysql with `mysql.server start` or if it's already running:
    `mysql.server restart`
@@ -69,11 +69,3 @@ CREATE TABLE sources (
 INSERT INTO sources
 VALUES ("Bob", "President", "USA", "805-111-2222", "555-555-5555", "000-000-0000", "bob@bob.com", "bobiscool@bob.com", "Bob is not cool");
 ```
-
-
-
-
-
-
-
-
