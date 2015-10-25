@@ -3,9 +3,9 @@
         <div class="col-md-12">
             <h1>Sources</h1>
             <p>A list of people who are known sources for the Daily Bruin.</p>
-
-            <table class="table table-striped" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299" data-sort-name="name" data-sort-order="desc" data-show-columns="true">
-                <thead>
+            <div class="table-responsive">
+                <table class="table table-striped" data-toggle="table" data-url="data1.json" data-cache="false" data-height="299" data-sort-name="name" data-sort-order="desc" data-show-columns="true">
+                    <thead>
                         <th data-field="name" data-sortable="true" data-switchable="false">Name of Source</th>
                         <th data-field="title">Title</th>
                         <th data-field="org" data-sortable="true">Organization</th>
@@ -15,19 +15,20 @@
                         <th data-field="workEm">Work Email</th>
                         <th data-field="personalEm" data-visible="false">Personal Email</th>
                         <th data-field="notes" data-visible="false">Notes/</th>
-                </thead>
-                <tbody>
-                    <td>{{response.name}}</td>
-                    <td>{{response.title}}</td>
-                    <td>{{response.org}}</td>
-                    <td>{{response.workPhone}}</td>
-                    <td>{{response.cellPhone}}</td>
-                    <td>{{response.otherPhone}}</td>
-                    <td>{{response.workEmail}}</td>
-                    <td>{{response.personalEmail}}</td>
-                    <td>{{response.notes}}</td>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <td>{{response.name}}</td>
+                        <td>{{response.title}}</td>
+                        <td>{{response.org}}</td>
+                        <td>{{response.workPhone}}</td>
+                        <td>{{response.cellPhone}}</td>
+                        <td>{{response.otherPhone}}</td>
+                        <td>{{response.workEmail}}</td>
+                        <td>{{response.personalEmail}}</td>
+                        <td>{{response.notes}}</td>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

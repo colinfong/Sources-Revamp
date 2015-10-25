@@ -63,6 +63,7 @@ CREATE TABLE sources (
     notes VARCHAR(500)
 );
 ```
+
 3. And insert a test row: 
 
 ``` 
