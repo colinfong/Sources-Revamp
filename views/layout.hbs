@@ -4,19 +4,32 @@
 <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.9,r-1.0.7/datatables.min.css" />
-
-    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.9,r-1.0.7/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.9,b-1.0.3,r-1.0.7/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.9,b-1.0.3,r-1.0.7/datatables.min.js"></script>
 
 </head>
 
 <body>
     {{{body}}}
+    <script src="/javascripts/jquery.tabletojson.min.js"></script>
     <script type="text/javascript">
+        var table;
+        var store;
         $(document).ready(function() {
-            $('#sourceTable').DataTable();
+            store = $('#sourceTable').tableToJSON();
+            table = $('#sourceTable').DataTable({
+                dom: '<"row"<"col-md-6"B><"col-md-6"f>>t<"row"<"col-md-6"i><"col-md-6"p>>',
+                buttons: [{
+                    text: 'Save',
+                    action: function(e, dt, node, config) {
+                        store = $('#sourceTable').tableToJSON();
+                    },
+                    enabled: false
+                }]
+            });
         });
     </script>
+    <script src="/javascripts/page.js"></script>
 </body>
 
 </html>

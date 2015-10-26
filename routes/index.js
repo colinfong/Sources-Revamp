@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
     // This makes a connection to the database and populates our initial response.
     connection.query('SELECT * FROM sources', function(err, rows, fields) {
         if (err) throw err;
-        res.render('index', {title: 'Express', response: rows[0]});
+        res.render('index', {title: 'Express', response: rows});
     });
 
 });

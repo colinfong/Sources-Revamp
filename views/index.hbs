@@ -6,29 +6,31 @@
             <table id="sourceTable" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Name of Source</th>
-                        <th>Title</th>
-                        <th>Organization</th>
-                        <th>Work Phone</th>
-                        <th>Cell Phone</th>
-                        <th>Other Phone</th>
-                        <th>Work Email</th>
-                        <th>Personal Email</th>
-                        <th>Notes/</th>
+                        <th data-override="name">Name of Source</th>
+                        <th data-override="title">Title</th>
+                        <th data-override="org">Organization</th>
+                        <th data-override="workPhone">Work Phone</th>
+                        <th data-override="cellPhone">Cell Phone</th>
+                        <th data-override="otherPhone">Other Phone</th>
+                        <th data-override="workEmail">Work Email</th>
+                        <th data-override="personalEmail">Personal Email</th>
+                        <th data-override="notes">Notes/</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td contentEditable = "true">{{response.name}}</td>
-                        <td contentEditable = "true">{{response.title}}</td>
-                        <td contentEditable = "true">{{response.org}}</td>
-                        <td contentEditable = "true">{{response.workPhone}}</td>
-                        <td contentEditable = "true">{{response.cellPhone}}</td>
-                        <td contentEditable = "true">{{response.otherPhone}}</td>
-                        <td contentEditable = "true">{{response.workEmail}}</td>
-                        <td contentEditable = "true">{{response.personalEmail}}</td>
-                        <td contentEditable = "true">{{response.notes}}</td>
+                    {{#each response}}
+                    <tr id="{{@index}}">
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.name}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.title}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.org}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.workPhone}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.cellPhone}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.otherPhone}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.workEmail}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.personalEmail}}</td>
+                        <td contentEditable = "true" oninput="handleChange(this)">{{this.notes}}</td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
