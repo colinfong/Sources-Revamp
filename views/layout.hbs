@@ -12,23 +12,6 @@
 <body>
     {{{body}}}
     <script src="/javascripts/jquery.tabletojson.min.js"></script>
-    <script type="text/javascript">
-        var table;
-        var store;
-        $(document).ready(function() {
-            store = $('#sourceTable').tableToJSON();
-            table = $('#sourceTable').DataTable({
-                dom: '<"row"<"col-md-6"B><"col-md-6"f>>t<"row"<"col-md-6"i><"col-md-6"p>>',
-                buttons: [{
-                    text: 'Save',
-                    action: function(e, dt, node, config) {
-                        store = $('#sourceTable').tableToJSON();
-                    },
-                    enabled: false
-                }]
-            });
-        });
-    </script>
     <script src="/javascripts/page.js"></script>
 </body>
 
