@@ -16,18 +16,16 @@ passport.deserializeUser(function(obj, done) {
 
 // UNCOMMENT THE FOLLOWING ONCE A CLIENT ID AND SECRET ARE OBTAINED
 
-//passport.use(new GoogleStrategy({
-//    clientID: GOOGLE_CLIENT_ID,
-//    clientSecret: GOOGLE_CLIENT_SECRET,
-//    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
-//  },
-//  function(accessToken, refreshToken, profile, done) {
-// asynchronous verification, for effect...
-//    process.nextTick(function () {
-//      return done(null, profile);
-//    });
-//  }
-//));
+passport.use(new GoogleStrategy({
+    // in production, hide the following somehow
+    clientID: "557716849061-upiujmrik7ah05fc92p0e4ki38a3fiu4.apps.googleusercontent.com",
+    clientSecret: "nJ10A33GBagyT94ntGG0XNFa",
+    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    return done(null, profile);
+  }
+));
 
 router.use(passport.initialize());
 router.use(passport.session());
