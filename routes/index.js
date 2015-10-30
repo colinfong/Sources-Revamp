@@ -14,10 +14,8 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-// UNCOMMENT THE FOLLOWING ONCE A CLIENT ID AND SECRET ARE OBTAINED
-
 passport.use(new GoogleStrategy({
-    // in production, hide the following somehow
+    // in production, hide the ID and secret somehow
     clientID: "557716849061-upiujmrik7ah05fc92p0e4ki38a3fiu4.apps.googleusercontent.com",
     clientSecret: "nJ10A33GBagyT94ntGG0XNFa",
     callbackURL: "http://127.0.0.1:3000/auth/google/callback"
