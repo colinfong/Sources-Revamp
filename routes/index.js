@@ -21,7 +21,15 @@ passport.use(new GoogleStrategy({
         callbackURL: "http://127.0.0.1:3000/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        return done(null, profile);
+        // asynchronous verification, for effect...
+        process.nextTick(function() {
+
+            // To keep the example simple, the user's Google profile is returned to
+            // represent the logged-in user.  In a typical application, you would want
+            // to associate the Google account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+        });
     }
 ));
 
@@ -36,13 +44,27 @@ var connection = mysql.createConnection({
     database: 'test'
 });
 
-/* GET home page. */
+/* GET login page */
+router.get('/login', function(req, res) {
+    res.render('login');
+});
+
+/* POST for login */
+router.post('/login',
+    passport.authenticate('google', {
+        failureRedirect: '/login',
+        scope: 'openid profile email'
+    })
+);
+
+/* GET sources if logged in; if not, send to login. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
     res.redirect('/sources')
 });
 
 /* GET sources page */
 router.get('/sources', ensureAuthenticated, function(req, res) {
+
     connection.query('SELECT * FROM sources', function(err, rows, fields) {
         if (err) throw err;
         res.render('index', {
@@ -50,21 +72,14 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
             response: rows
         });
     });
+
 });
 
-/* GET login page */
-
-router.get('/login', ensureAuthenticated, function(req, res) {
-    res.render('login');
+/* Called when authentication finishes */
+router.get('/auth/google/callback', function(req, res) {
+    console.log(req.user);
+    res.redirect('/sources');
 });
-
-/* POST for login */
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/sources',
-        failureRedirect: '/login'
-    })
-);
 
 // Ensure that user is authenticated whenever
 // they try to access a protected resource
