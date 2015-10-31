@@ -7,7 +7,7 @@ var url = require('url');
 var queryHandler = require('querystring');
 var https = require('https');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
-var configAuth = require('./helpers/configAuth');
+var configAuth = require('../helpers/configAuth');
 
 var router = express.Router();
 
