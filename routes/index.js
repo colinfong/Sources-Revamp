@@ -7,16 +7,12 @@ var url = require('url');
 var queryHandler = require('querystring');
 var https = require('https');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
+var configAuth = require('./helpers/configAuth');
 
 var router = express.Router();
 
 /* Set connection parameters */
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'db',
-    password: 'bruins111', // TODO: need a more secure method than hardcoding here
-    database: 'test'
-});
+var connection = mysql.createConnection(configAuth.database);
 
 /* GET login page */
 router.get('/login', function(req, res) {
@@ -27,7 +23,7 @@ router.get('/auth/google', function(req, res) {
 
     var queryContents = {
         response_type: 'code',
-        client_id: "557716849061-upiujmrik7ah05fc92p0e4ki38a3fiu4.apps.googleusercontent.com",
+        client_id: configAuth.oauth.client_id,
         redirect_uri: 'http://127.0.0.1:3000/auth/google/callback/1',
         scope: 'email'
     };
@@ -55,8 +51,8 @@ router.get('/auth/google/callback/1', function(req, res) {
 
         var queryContents = {
             code: response.code,
-            client_id: "557716849061-upiujmrik7ah05fc92p0e4ki38a3fiu4.apps.googleusercontent.com",
-            client_secret: 'nJ10A33GBagyT94ntGG0XNFa',
+            client_id: configAuth.oauth.client_id,
+            client_secret: configAuth.oauth.client_secret,
             redirect_uri: 'http://127.0.0.1:3000/auth/google/callback/2',
             grant_type: 'authorization_code'
         };
