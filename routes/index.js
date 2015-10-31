@@ -1,111 +1,89 @@
 var express = require('express');
-var session = require('express-session');
 var Handlebars = require('hbs');
 var mysql = require('mysql');
-var passport = require('passport');
+var google = require('googleapis');
 var url = require('url');
-var queryHandler = require('querystring');
-var https = require('https');
-var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var configAuth = require('../helpers/configAuth');
 
 var router = express.Router();
 
-/* Set connection parameters */
-var connection = mysql.createConnection(configAuth.database);
+/* 
 
-/* GET login page */
-router.get('/login', function(req, res) {
-    res.render('login');
-});
+ALL AUTHENTICATION HAPPENS HERE 
 
+This section includes the entire OAuth flow, and subsequent
+verification processes. DO NOT MESS WITH THIS unless you wish
+to address a TODO.
+
+*/
+
+// required libraries
+var OAuth2 = google.auth.OAuth2; // for pure authentication purposes
+var Profile = google.oauth2('v2'); // to obtain profile details
+
+var oauth2Client = new OAuth2(configAuth.oauth.client_id, configAuth.oauth.client_secret, 'http://127.0.0.1:3000/auth/google/callback/1'); // OAuth2 client to handle grunt work
+
+// called when we want to being authentication.
 router.get('/auth/google', function(req, res) {
 
-    var queryContents = {
-        response_type: 'code',
-        client_id: configAuth.oauth.client_id,
-        redirect_uri: 'http://127.0.0.1:3000/auth/google/callback/1',
+    var url = oauth2Client.generateAuthUrl({
         scope: 'email'
-    };
+    });
 
-    res.redirect('https:accounts.google.com/o/oauth2/auth?' + queryHandler.stringify(queryContents));
+    res.redirect(url);
 
 });
 
-/* GET sources if logged in; if not, send to login. */
-router.get('/', ensureAuthenticated, function(req, res, next) {
-    res.redirect('/sources');
-});
-
-/* Called when authentication finishes */
+// called as next step in authentication process, redirected from URL in previous call
 router.get('/auth/google/callback/1', function(req, res) {
 
-    var response = url.parse(req.url, true)['query'];
+    var response = url.parse(req.url, true)['query']; // get authentication code
 
     if (response.error) {
 
-        console.log('There was an authentication error!');
-        res.redirect('/login');
+        console.log(response.error); // print to terminal
+        res.redirect('/login'); // send user back to login to try again
 
     } else {
 
-        var queryContents = {
-            code: response.code,
-            client_id: configAuth.oauth.client_id,
-            client_secret: configAuth.oauth.client_secret,
-            redirect_uri: 'http://127.0.0.1:3000/auth/google/callback/2',
-            grant_type: 'authorization_code'
-        };
-        
-        console.log()
-
-        var requestParams = {
-            hostname: 'www.googleapis.com',
-            path: '/oauth2/v3/token',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': queryHandler.stringify(queryContents).length
+        oauth2Client.getToken(response.code, function(err, tokens) {
+            // Now tokens contains an access_token and an optional refresh_token. Save them.
+            if (!err) {
+                oauth2Client.setCredentials(tokens);
+                res.redirect('/sources'); // TODO: Make this asynchronous so as not to impact user experience!
             }
-        };
-
-        var request = https.request(requestParams, function(res) {
-            console.log('STATUS: ' + res.statusCode);
-            console.log('HEADERS: ' + JSON.stringify(res.headers));
-            res.setEncoding('utf8');
-            res.on('data', function(chunk) {
-                console.log('BODY: ' + chunk);
-            });
-            res.on('end', function() {
-                console.log('No more data in response.')
-            });
         });
 
-        request.on('error', function(e) {
-            console.log('problem with request: ' + e.message);
-        });
-
-        request.write(queryHandler.stringify(queryContents));
-        request.end();
     }
 });
 
-router.get('/auth/google/callback/2', function(req, res) {
-    res.redirect('/sources');
-});
-
-// Ensure that user is authenticated whenever
-// they try to access a protected resource
+// Ensure that user is authenticated whenever they try to access a protected resource
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        // Nice try, buster
-        res.redirect('/login');
-    }
+
+    Profile.userinfo.v2.me.get({
+        auth: oauth2Client
+    }, function(err, response) {
+        if (err || response.hd !== 'media.ucla.edu') {
+            res.redirect('/login');
+        } else {
+            return next();
+        }
+    });
 }
 
-/* GET sources page */
+/* 
+
+ALL DATABASE_SENSITIVE WORK HAPPENS HERE 
+
+This section includes page routes that require database connection
+requests. It also includes post requests to update database properties.
+
+*/
+
+// Set connection parameters
+var connection = mysql.createConnection(configAuth.database);
+
+// On accessing /sources, load sources from database
 router.get('/sources', ensureAuthenticated, function(req, res) {
 
     connection.query('SELECT * FROM sources', function(err, rows, fields) {
@@ -116,6 +94,28 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
         });
     });
 
+});
+
+/* 
+
+ALL OTHER ROUTES ARE DEFINED HERE 
+
+Current routes:
+
+'/'
+'/login'
+'/sources' (see Database Section)
+
+*/
+
+// GET login page 
+router.get('/login', function(req, res) {
+    res.render('login');
+});
+
+// GET sources if logged in; if not, send to login.
+router.get('/', ensureAuthenticated, function(req, res, next) {
+    res.redirect('/sources');
 });
 
 module.exports = router;
