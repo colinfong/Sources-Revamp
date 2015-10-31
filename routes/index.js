@@ -15,15 +15,26 @@ This section includes the entire OAuth flow, and subsequent
 verification processes. DO NOT MESS WITH THIS unless you wish
 to address a TODO.
 
+Routes:
+
+'/auth/google/'
+'auth/google/callback' 
+
+Functions:
+
+ensureAuthenticated
+
 */
 
 // required libraries
 var OAuth2 = google.auth.OAuth2; // for pure authentication purposes
 var Profile = google.oauth2('v2'); // to obtain profile details
 
-var oauth2Client = new OAuth2(configAuth.oauth.client_id, configAuth.oauth.client_secret, 'http://127.0.0.1:3000/auth/google/callback/1'); // OAuth2 client to handle grunt work
+var oauth2Client = new OAuth2(configAuth.oauth.client_id, 
+                              configAuth.oauth.client_secret, 
+                              'http://127.0.0.1:3000/auth/google/callback'); // OAuth2 client to handle grunt work
 
-// called when we want to being authentication.
+// called when we want to begin authentication.
 router.get('/auth/google', function(req, res) {
 
     var url = oauth2Client.generateAuthUrl({
@@ -35,7 +46,7 @@ router.get('/auth/google', function(req, res) {
 });
 
 // called as next step in authentication process, redirected from URL in previous call
-router.get('/auth/google/callback/1', function(req, res) {
+router.get('/auth/google/callback', function(req, res) {
 
     var response = url.parse(req.url, true)['query']; // get authentication code
 
