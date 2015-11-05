@@ -53,20 +53,21 @@ For local testing:
 ```
 CREATE TABLE sources (
     name VARCHAR(60),
-    title VARCHAR(80),
-    org VARCHAR(50),
-    workPhone VARCHAR(30),
-    cellPhone VARCHAR(30),
-    otherPhone VARCHAR(30),
-    workEmail VARCHAR(50),
-    personalEmail VARCHAR(50),
-    notes VARCHAR(500)
+    org VARCHAR(500),
+    phones VARCHAR(500),
+    emails VARCHAR(500),
+    notes VARCHAR(1000)
 );
 ```
 
 3. And insert a test row: 
 
 ``` 
-INSERT INTO sources
-VALUES ("Bob", "President", "USA", "805-111-2222", "555-555-5555", "000-000-0000", "bob@bob.com", "bobiscool@bob.com", "Bob is not cool");
+INSERT INTO sources VALUES (
+"Bob Bobsworth", 
+"(UCPD: Assistant Cop), (ASUCLA: Architect of Dreams, Chief Ambassador)", 
+"(Work: 000-000-0000), (Cell: 512-512-5121, 111-111-1111)", 
+"(Work: bobbob@boba.com), (Personal: hotstuff@cool4lyf.com)", 
+"Emotionally unavailable"
+);
 ```
