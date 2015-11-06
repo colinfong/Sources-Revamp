@@ -20,15 +20,15 @@
                 <tbody>
                     {{#each response}}
                     <tr id="{{@index}}">
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="name">{{this.name}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="title">{{this.title}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="org">{{this.org}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="workPhone">{{this.workPhone}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="cellPhone">{{this.cellPhone}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="otherPhone">{{this.otherPhone}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="workEmail">{{this.workEmail}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="personalEmail">{{this.personalEmail}}</td>
-                        <td contentEditable="true" oninput="handleChange(this)" data-property="notes">{{this.notes}}</td>
+                        <td data-property="name">{{this.name}}</td>
+                        <td data-property="title">{{this.title}}</td>
+                        <td data-property="org">{{this.org}}</td>
+                        <td data-property="workPhone">{{this.workPhone}}</td>
+                        <td data-property="cellPhone">{{this.cellPhone}}</td>
+                        <td data-property="otherPhone">{{this.otherPhone}}</td>
+                        <td data-property="workEmail">{{this.workEmail}}</td>
+                        <td data-property="personalEmail">{{this.personalEmail}}</td>
+                        <td data-property="notes">{{this.notes}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
