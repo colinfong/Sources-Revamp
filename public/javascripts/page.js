@@ -25,9 +25,23 @@ table = $('#sourceTable').DataTable({
         text: 'Delete',
         action: function(e, dt, node, config) {
             // delete the data!
-            dt.row({selected: true}).remove().draw(false);
+            var row = dt.row({selected: true});
+            row.deselect();
+            row.remove().draw(false);
         },
         enabled: false
+    },{
+        text: 'Add',
+        action: function(e, dt, node, config) {
+            // deselect selected rows
+            dt.row({selected: true}).deselect();
+            // add a row!
+            dt.page('last').draw('page');
+            dt.row.add(
+                ["Name", "Title", "Organisation", "workPhone", "cellPhone", "otherPhone", "workEmail", "personalEmail", "notes"]
+            ).draw(false);
+        },
+        enabled: true
     }]
 });
 
