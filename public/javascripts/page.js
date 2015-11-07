@@ -4,7 +4,7 @@ var table;
 var store;
 var isEditUnsaved = false;
 
-store = $('#sourceTable').tableToJSON(); // save copy of table on page load, before DataTables is applied.
+store = $('#sourceTable').tableToJSON(); // save copy of table on page load, before DataTables is applied. EDIT: We probably no longer need this!
 
 table = $('#sourceTable').DataTable({
     dom: '<"row"<"col-md-6"B><"col-md-6"f>>t<"row"<"col-md-6"i><"col-md-6"p>>',
@@ -18,13 +18,7 @@ table = $('#sourceTable').DataTable({
             // alter the data!
             returned[0] = "ANDDNDDNDNDND";
             // set the data!
-            dt.row({selected: true}).data(returned).draw(false);
-            // try to implement page redirect after edit...
-            //console.log(dt.row({selected: true}).index());
-            //console.log(dt.page.len());
-            //console.log(dt.row({selected: true}).index() % dt.page.len());
-            //var newPage = dt.row({selected: true}).index() % dt.page.len() - 1;
-            //dt.page(newPage).draw('page');
+            dt.row({selected: true}).data(returned).draw();
         },
         enabled: false
     },{
@@ -33,7 +27,7 @@ table = $('#sourceTable').DataTable({
             // delete the data!
             var row = dt.row({selected: true});
             row.deselect();
-            row.remove().draw(false);
+            row.remove().draw('full-hold');
         },
         enabled: false
     },{
@@ -42,10 +36,11 @@ table = $('#sourceTable').DataTable({
             // deselect selected rows
             dt.row({selected: true}).deselect();
             // add a row!
-            dt.page('last').draw('page');
             dt.row.add(
                 ["Name", "Title", "Organisation", "workPhone", "cellPhone", "otherPhone", "workEmail", "personalEmail", "notes"]
-            ).draw(false);
+            ).draw(true);
+            // jump to last page
+            dt.page('last').draw('page');
         },
         enabled: true
     }]
@@ -64,22 +59,6 @@ table.on('deselect', function () {
     table.button(0).disable();
     table.button(1).disable();
 } );
-
-
-/* 
-
-The following function is deprecated, since we're moving to editing rows rather than each
-individual cell.
-
-*/
-
-/*function handleChange(target) {
-    var row = parseInt(target.parentNode.getAttribute("id")); // get the row by looking up <tr> id
-    var property = target.getAttribute("data-property"); //get what property it corresponds to
-    store[row][property] = target.innerText; // update the local copy of the store
-    flag = true; // notify the world that a change has been made
-    table.button(0).enable(); // enable the save changes button
-}*/
 
 window.onbeforeunload = function() {
     // Warns you if you try to leave without submitting your changes.

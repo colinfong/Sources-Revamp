@@ -3,7 +3,13 @@ var Handlebars = require('hbs');
 var mysql = require('mysql');
 var google = require('googleapis');
 var url = require('url');
+
 var configAuth = require('../helpers/configAuth');
+
+var knex = require('knex')({
+    client: 'mysql',
+    connection: configAuth.database
+});
 
 var router = express.Router();
 
@@ -30,9 +36,9 @@ ensureAuthenticated
 var OAuth2 = google.auth.OAuth2; // for pure authentication purposes
 var Profile = google.oauth2('v2'); // to obtain profile details
 
-var oauth2Client = new OAuth2(configAuth.oauth.client_id, 
-                              configAuth.oauth.client_secret, 
-                              'http://127.0.0.1:3000/auth/google/callback'); // OAuth2 client to handle grunt work
+var oauth2Client = new OAuth2(configAuth.oauth.client_id,
+    configAuth.oauth.client_secret,
+    'http://127.0.0.1:3000/auth/google/callback'); // OAuth2 client to handle grunt work
 
 // called when we want to begin authentication.
 router.get('/auth/google', function(req, res) {
@@ -97,15 +103,37 @@ var connection = mysql.createConnection(configAuth.database);
 // On accessing /sources, load sources from database
 router.get('/sources', ensureAuthenticated, function(req, res) {
 
-    connection.query('SELECT * FROM sources', function(err, rows, fields) {
-        if (err) throw err;
-        res.render('index', {
-            title: 'Express',
-            response: rows
+    knex.select().table('sources')
+        .then(
+            function(rows) {
+                res.render('index', {
+                    title: 'Express',
+                    response: rows
+                });
+            })
+        .catch(function(error) {
+            console.error(error);
         });
-    });
 
 });
+
+// on edit, POST the data to MySQL.
+
+// implement method here.
+router.post('/edit', function(req, res, next) {
+    console.log(JSON.stringify(req.body));
+})
+
+// on delete, POST the data to MySQL.
+
+router.post('/delete', function(req, res, next) {
+    console.log(JSON.stringify(req.body));
+})
+
+// implement method here.
+
+// We don't use a method to update MySQL on clicking 'Add'.
+// 'Add' creates a new, useless row - only push changes when users edit something.
 
 /* 
 
