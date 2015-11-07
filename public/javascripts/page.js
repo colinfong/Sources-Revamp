@@ -19,6 +19,12 @@ table = $('#sourceTable').DataTable({
             returned[0] = "ANDDNDDNDNDND";
             // set the data!
             dt.row({selected: true}).data(returned).draw(false);
+            // try to implement page redirect after edit...
+            //console.log(dt.row({selected: true}).index());
+            //console.log(dt.page.len());
+            //console.log(dt.row({selected: true}).index() % dt.page.len());
+            //var newPage = dt.row({selected: true}).index() % dt.page.len() - 1;
+            //dt.page(newPage).draw('page');
         },
         enabled: false
     },{
