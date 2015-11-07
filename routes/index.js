@@ -90,7 +90,7 @@ function ensureAuthenticated(req, res, next) {
 
 /* 
 
-ALL DATABASE_SENSITIVE WORK HAPPENS HERE 
+ALL DATABASE-SENSITIVE WORK HAPPENS HERE 
 
 This section includes page routes that require database connection
 requests. It also includes post requests to update database properties.
@@ -120,15 +120,15 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
 // on edit, POST the data to MySQL.
 
 // implement method here.
-router.post('/edit', function(req, res, next) {
+router.post('/edit', ensureAuthenticated, function(req, res, next) {
     console.log(JSON.stringify(req.body));
-})
+});
 
 // on delete, POST the data to MySQL.
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', ensureAuthenticated, function(req, res, next) {
     console.log(JSON.stringify(req.body));
-})
+});
 
 // implement method here.
 
