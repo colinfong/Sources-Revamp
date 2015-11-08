@@ -123,11 +123,38 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
 
 });
 
+/* on add, POST the data to MySQL */
+
+router.post('/add', ensureAuthenticated, function(req, res, next) {
+    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    
+    var data = _.object(colNames, req.body);
+    
+    knex('sources').insert(data)
+        .then(function(array) {
+            console.log(array);
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+});
+
 // on edit, POST the data to MySQL.
 
-// implement method here.
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
-    console.log(req.body);
+    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    
+    var oldData = _.object(colNames, req.body.old);
+    var newData = _.object(colNames, req.body.new);
+    
+    knex('sources').where(oldData)
+        .update(newData)
+        .then(function(num) {
+            console.log('Updated ' + num + ' rows');
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
 });
 
 // on delete, POST the data to MySQL.
@@ -135,8 +162,9 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
 router.post('/delete', ensureAuthenticated, function(req, res, next) {
     var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
     // Lodash creates an object by combining key array and value array
+    
     var data = _.object(colNames, req.body);
-    console.log(data);
+    
     knex('sources')
         .where(data)
         .del()
@@ -149,7 +177,7 @@ router.post('/delete', ensureAuthenticated, function(req, res, next) {
 });
 
 // We don't use a method to update MySQL on clicking 'Add'.
-// 'Add' creates a new, useless row - only push changes when users edit something.
+// 'Add' creates a new, useless row for now - when we have edit interface this should work correctly.
 
 /* 
 

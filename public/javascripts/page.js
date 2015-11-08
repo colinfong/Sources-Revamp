@@ -12,17 +12,28 @@ table = $('#sourceTable').DataTable({
     responsive: true,
     buttons: [{
         text: 'Edit',
-        action: function(e, dt, node, config) {
+        action: function (e, dt, node, config) {
             // get the data!
-            var returned = dt.row({
+            swal("You're about to edit a row!");
+            var oldData = dt.row({
                 selected: true
             }).data();
             // alter the data!
-            returned[0] = "ANDDNDDNDNDND";
+            var newData = $.extend( {}, oldData ); // create shallow copy
+            newData[0] = "ANDDNDDNDNDND";
             // set the data!
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/edit",
+                data: JSON.stringify({
+                    old: oldData,
+                    new: newData
+                })
+            });
             dt.row({
                 selected: true
-            }).data(returned).draw();
+            }).data(newdata).draw();
         },
         enabled: false
     }, {
@@ -34,8 +45,8 @@ table = $('#sourceTable').DataTable({
                 text: "You are about to delete the selected row",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-            }, function() {
+                confirmButtonText: "Yes, delete it!"
+            }, function () {
                 var row = dt.row({
                     selected: true
                 });
@@ -44,7 +55,7 @@ table = $('#sourceTable').DataTable({
                     type: "POST",
                     contentType: "application/json",
                     url: "/delete",
-                    data: JSON.stringify(row.data()),
+                    data: JSON.stringify(row.data())
                 });
                 row.remove().draw('full-hold');
             });
@@ -52,15 +63,21 @@ table = $('#sourceTable').DataTable({
         enabled: false
     }, {
         text: 'Add',
-        action: function(e, dt, node, config) {
+        action: function (e, dt, node, config) {
             // deselect selected rows
+            swal("You added a row!");
             dt.row({
                 selected: true
             }).deselect();
             // add a row!
-            dt.row.add(
-                ["Name", "Title", "Organisation", "workPhone", "cellPhone", "otherPhone", "workEmail", "personalEmail", "notes"]
-            ).draw(true);
+            var newRowData = ["Name", "Title", "Organisation", "workPhone", "cellPhone", "otherPhone", "workEmail", "personalEmail", "notes"];
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/add",
+                data: JSON.stringify(newRowData)
+            });
+            dt.row.add(newRowData).draw(true);
             // jump to last page
             dt.page('last').draw('page');
         },
@@ -68,7 +85,7 @@ table = $('#sourceTable').DataTable({
     }]
 });
 
-table.on('select', function() {
+table.on('select', function () {
     var selectedRows = table.rows({
         selected: true
     }).count();
