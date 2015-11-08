@@ -14,33 +14,49 @@ table = $('#sourceTable').DataTable({
         text: 'Edit',
         action: function(e, dt, node, config) {
             // get the data!
-            var returned = dt.row({selected: true}).data();
+            var returned = dt.row({
+                selected: true
+            }).data();
             // alter the data!
             returned[0] = "ANDDNDDNDNDND";
             // set the data!
-            dt.row({selected: true}).data(returned).draw();
+            dt.row({
+                selected: true
+            }).data(returned).draw();
         },
         enabled: false
-    },{
+    }, {
         text: 'Delete',
         action: function(e, dt, node, config) {
             // delete the data!
-            var row = dt.row({selected: true});
-            row.deselect();
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url:"/delete",
-                data: JSON.stringify(row.data()),
+            swal({
+                title: "Are you sure?",
+                text: "You are about to delete the selected row",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+            }, function() {
+                var row = dt.row({
+                    selected: true
+                });
+                row.deselect();
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "/delete",
+                    data: JSON.stringify(row.data()),
+                });
+                row.remove().draw('full-hold');
             });
-            row.remove().draw('full-hold');
         },
         enabled: false
-    },{
+    }, {
         text: 'Add',
         action: function(e, dt, node, config) {
             // deselect selected rows
-            dt.row({selected: true}).deselect();
+            dt.row({
+                selected: true
+            }).deselect();
             // add a row!
             dt.row.add(
                 ["Name", "Title", "Organisation", "workPhone", "cellPhone", "otherPhone", "workEmail", "personalEmail", "notes"]
@@ -61,10 +77,10 @@ table.on('select', function() {
     table.button(1).enable(selectedRows > 0);
 });
 
-table.on('deselect', function () {
+table.on('deselect', function() {
     table.button(0).disable();
     table.button(1).disable();
-} );
+});
 
 window.onbeforeunload = function() {
     // Warns you if you try to leave without submitting your changes.
