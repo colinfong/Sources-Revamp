@@ -27,6 +27,12 @@ table = $('#sourceTable').DataTable({
             // delete the data!
             var row = dt.row({selected: true});
             row.deselect();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url:"/delete",
+                data: JSON.stringify(row.data()),
+            });
             row.remove().draw('full-hold');
         },
         enabled: false

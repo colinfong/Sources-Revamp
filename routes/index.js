@@ -3,6 +3,8 @@ var Handlebars = require('hbs');
 var mysql = require('mysql');
 var google = require('googleapis');
 var url = require('url');
+var bodyParser = require('body-parser');
+var _ = require('lodash')
 
 var configAuth = require('../helpers/configAuth');
 
@@ -12,6 +14,8 @@ var knex = require('knex')({
 });
 
 var router = express.Router();
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 /* 
 
@@ -121,16 +125,20 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
 
 // implement method here.
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
-    console.log(JSON.stringify(req.body));
+    console.log(req.body);
 });
 
 // on delete, POST the data to MySQL.
 
 router.post('/delete', ensureAuthenticated, function(req, res, next) {
-    console.log(JSON.stringify(req.body));
+    var colNames = ['name','title','org','workPhone','cellPhone','otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    // Lodash creates an object by combining key array and value array
+    var data = _.object(colNames, req.body);
+    console.log(data);
+    knex('sources').where(data).del().then(function(num) {
+        console.log('Deleted '+ num +' rows');
+    });
 });
-
-// implement method here.
 
 // We don't use a method to update MySQL on clicking 'Add'.
 // 'Add' creates a new, useless row - only push changes when users edit something.
