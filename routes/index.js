@@ -15,7 +15,9 @@ var knex = require('knex')({
 
 var router = express.Router();
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 /* 
 
@@ -131,13 +133,19 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
 // on delete, POST the data to MySQL.
 
 router.post('/delete', ensureAuthenticated, function(req, res, next) {
-    var colNames = ['name','title','org','workPhone','cellPhone','otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
     // Lodash creates an object by combining key array and value array
     var data = _.object(colNames, req.body);
     console.log(data);
-    knex('sources').where(data).del().then(function(num) {
-        console.log('Deleted '+ num +' rows');
-    });
+    knex('sources')
+        .where(data)
+        .del()
+        .then(function(num) {
+            console.log('Deleted ' + num + ' rows');
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
 });
 
 // We don't use a method to update MySQL on clicking 'Add'.
