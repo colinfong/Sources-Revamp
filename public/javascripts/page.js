@@ -105,10 +105,3 @@ table.on('deselect', function() {
     table.button(0).disable();
     table.button(1).disable();
 });
-
-window.onbeforeunload = function() {
-    // Warns you if you try to leave without submitting your changes.
-    if (isEditUnsaved === true) {
-        return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
-    }
-}
