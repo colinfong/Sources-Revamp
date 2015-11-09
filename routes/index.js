@@ -1,6 +1,5 @@
 var express = require('express');
 var Handlebars = require('hbs');
-var mysql = require('mysql');
 var google = require('googleapis');
 var url = require('url');
 var bodyParser = require('body-parser');
@@ -103,9 +102,6 @@ requests. It also includes post requests to update database properties.
 
 */
 
-// Set connection parameters
-var connection = mysql.createConnection(configAuth.database);
-
 // On accessing /sources, load sources from database
 router.get('/sources', ensureAuthenticated, function(req, res) {
 
@@ -133,9 +129,11 @@ router.post('/add', ensureAuthenticated, function(req, res, next) {
     knex('sources').insert(data)
         .then(function(array) {
             console.log(array);
+            res.status(204).end();
         })
         .catch(function(error) {
             console.error(error);
+            res.status(204).end();
         });
 });
 
@@ -151,9 +149,11 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
         .update(newData)
         .then(function(num) {
             console.log('Updated ' + num + ' rows');
+            res.status(204).end();
         })
         .catch(function(error) {
             console.error(error);
+            res.status(204).end();
         });
 });
 
@@ -170,9 +170,11 @@ router.post('/delete', ensureAuthenticated, function(req, res, next) {
         .del()
         .then(function(num) {
             console.log('Deleted ' + num + ' rows');
+            res.status(204).end();
         })
         .catch(function(error) {
             console.error(error);
+            res.status(204).end();
         });
 });
 
@@ -187,7 +189,8 @@ Current routes:
 
 '/'
 '/login'
-'/sources' (see Database Section)
+
+    res.status(204).end();'/sources' (see Database Section)
 
 */
 

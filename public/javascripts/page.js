@@ -12,14 +12,13 @@ table = $('#sourceTable').DataTable({
     responsive: true,
     buttons: [{
         text: 'Edit',
-        action: function (e, dt, node, config) {
+        action: function(e, dt, node, config) {
             // get the data!
-            swal("You're about to edit a row!");
             var oldData = dt.row({
                 selected: true
             }).data();
             // alter the data!
-            var newData = $.extend( {}, oldData ); // create shallow copy
+            var newData = $.extend({}, oldData); // create shallow copy
             newData[0] = "ANDDNDDNDNDND";
             // set the data!
             $.ajax({
@@ -29,11 +28,14 @@ table = $('#sourceTable').DataTable({
                 data: JSON.stringify({
                     old: oldData,
                     new: newData
-                })
+                }),
+                success: function(event) {
+                    console.log("It worked");
+                }
             });
             dt.row({
                 selected: true
-            }).data(newdata).draw();
+            }).data(newData).draw();
         },
         enabled: false
     }, {
@@ -46,7 +48,7 @@ table = $('#sourceTable').DataTable({
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Yes, delete it!"
-            }, function () {
+            }, function() {
                 var row = dt.row({
                     selected: true
                 });
@@ -55,7 +57,10 @@ table = $('#sourceTable').DataTable({
                     type: "POST",
                     contentType: "application/json",
                     url: "/delete",
-                    data: JSON.stringify(row.data())
+                    data: JSON.stringify(row.data()),
+                    success: function(event) {
+                        console.log("It worked");
+                    }
                 });
                 row.remove().draw('full-hold');
             });
@@ -63,9 +68,8 @@ table = $('#sourceTable').DataTable({
         enabled: false
     }, {
         text: 'Add',
-        action: function (e, dt, node, config) {
+        action: function(e, dt, node, config) {
             // deselect selected rows
-            swal("You added a row!");
             dt.row({
                 selected: true
             }).deselect();
@@ -75,7 +79,10 @@ table = $('#sourceTable').DataTable({
                 type: "POST",
                 contentType: "application/json",
                 url: "/add",
-                data: JSON.stringify(newRowData)
+                data: JSON.stringify(newRowData),
+                success: function(event) {
+                    console.log("It worked");
+                }
             });
             dt.row.add(newRowData).draw(true);
             // jump to last page
@@ -85,7 +92,7 @@ table = $('#sourceTable').DataTable({
     }]
 });
 
-table.on('select', function () {
+table.on('select', function() {
     var selectedRows = table.rows({
         selected: true
     }).count();
