@@ -1,12 +1,7 @@
 // Bad JS follows! We should never have anything as a global variable.
 // Some refactoring would be advisable!
-var table;
-var store;
-var isEditUnsaved = false;
 
-store = $('#sourceTable').tableToJSON(); // save copy of table on page load, before DataTables is applied. EDIT: We probably no longer need this!
-
-table = $('#sourceTable').DataTable({
+var table = $('#sourceTable').DataTable({
     dom: '<"row"<"col-md-6"B><"col-md-6"f>>t<"row"<"col-md-6"i><"col-md-6"p>>',
     select: true,
     responsive: true,

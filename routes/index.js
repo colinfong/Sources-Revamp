@@ -3,17 +3,21 @@ var Handlebars = require('hbs');
 var google = require('googleapis');
 var url = require('url');
 var bodyParser = require('body-parser');
-var _ = require('lodash')
+var _ = require('lodash'); // generally useful library! 
 
+// configuration settings
 var configAuth = require('../helpers/configAuth');
 
+// An optimised SQL query builder!
 var knex = require('knex')({
     client: 'mysql',
     connection: configAuth.database
 });
 
 var router = express.Router();
-router.use(bodyParser.json());
+// the following are needed to ensure JSON data sent through POST
+// requests are correctly decoded.
+router.use(bodyParser.json()); 
 router.use(bodyParser.urlencoded({
     extended: false
 }));
