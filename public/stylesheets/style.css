@@ -2,3 +2,78 @@
     margin: 0 auto;
     display: table;
 }
+
+.page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    font-family: "Century", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+}
+
+figure.login {
+    z-index: auto;
+    overflow: visible;
+    top: 50%;
+}
+
+figure.login:before,
+figure.login img:before {
+
+    content: '';
+    -webkit-transition: opacity 0.35s;
+    transition: opacity 0.35s;
+}
+
+figure.login:before {
+    box-shadow: 0 3px 30px rgba(0,0,0,0.8);
+    border-radius:100px;
+    opacity: 0;
+}
+
+figure.login h1,  
+figure.login a.link {
+    opacity: 0;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale3d(0.9,0.9,1);
+    transform: scale3d(0.9,0.9,1);
+}
+
+figure.login img {
+    opacity: 1;
+    -webkit-transition: -webkit-transform 0.35s;
+    transition: transform 0.35s;
+    -webkit-transform: perspective(1000px) translate3d(0,0,0);
+    transform: perspective(1000px) translate3d(0,0,0);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    border-radius:100px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+figure.login img:hover:before {
+    opacity: 1;
+}
+
+figure.login img:hover {
+    -webkit-transform: perspective(1000px) translate3d(0,0,21px);
+    transform: perspective(1000px) translate3d(0,0,21px);
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+}
+
+figure.login img:hover h1,
+figure.login img:hover a.link {
+    opacity: 1;
+    -webkit-transform: scale3d(1,1,1);
+    transform: scale3d(1,1,1);
+}
