@@ -42,6 +42,7 @@ var table = $('#sourceTable').DataTable({
             // display modal
             $("#myModal").modal();
             
+            // populate modal fields
             for (var i = 0; i < headers.length; i++) {
                     $("#" + headers[i]).val(oldData[i]);
             }
@@ -71,19 +72,15 @@ var table = $('#sourceTable').DataTable({
                         new: newData
                     }),
                     success: function(event) {
-                        console.log("It worked");
+                        console.log("Edited row");
                     }
                 });
 
                 dt.row({
                     selected: true
                 }).data(newData).draw();
-                dt.columns.adjust().draw();
             });
 
-            $(".close").on('click', function() {
-                $('#myModal').modal('hide');
-            });
         },
         enabled: false
     }, {
@@ -112,7 +109,7 @@ var table = $('#sourceTable').DataTable({
                     url: "/delete",
                     data: JSON.stringify(row.data()),
                     success: function(event) {
-                        console.log("It worked");
+                        console.log("Deleted row");
                     }
                 });
 
@@ -121,9 +118,6 @@ var table = $('#sourceTable').DataTable({
                 row.remove().draw('full-hold');
             });
 
-            $(".close").on('click', function() {
-                $('#myModal').modal('hide');
-            });
         },
         enabled: false
     }, {
@@ -160,7 +154,7 @@ var table = $('#sourceTable').DataTable({
                         url: "/add",
                         data: JSON.stringify(newData),
                         success: function(event) {
-                            console.log("It worked");
+                            console.log("Added row");
                         }
                     });
 
@@ -173,9 +167,6 @@ var table = $('#sourceTable').DataTable({
                 // do nothing otherwise
             });
 
-            $(".close").on('click', function() {
-                $('#myModal').modal('hide');
-            });
         },
         enabled: true
     }]
