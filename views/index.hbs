@@ -9,13 +9,9 @@
                 <thead>
                     <tr>
                         <th>Name of Source</th>
-                        <th>Title</th>
                         <th>Organization</th>
-                        <th>Work Phone</th>
-                        <th>Cell Phone</th>
-                        <th>Other Phone</th>
-                        <th>Work Email</th>
-                        <th>Personal Email</th>
+                        <th>Phones</th>
+                        <th>Emails</th>
                         <th>Notes</th>
                     </tr>
                 </thead>
@@ -23,13 +19,9 @@
                     {{#each response}}
                     <tr>
                         <td>{{this.name}}</td>
-                        <td>{{this.title}}</td>
                         <td>{{this.org}}</td>
-                        <td>{{this.workPhone}}</td>
-                        <td>{{this.cellPhone}}</td>
-                        <td>{{this.otherPhone}}</td>
-                        <td>{{this.workEmail}}</td>
-                        <td>{{this.personalEmail}}</td>
+                        <td>{{this.phones}}</td>
+                        <td>{{this.emails}}</td>
                         <td>{{this.notes}}</td>
                     </tr>
                     {{/each}}

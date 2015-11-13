@@ -126,7 +126,7 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
 /* on add, POST the data to MySQL */
 
 router.post('/add', ensureAuthenticated, function(req, res, next) {
-    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
     
     var data = _.object(colNames, req.body);
     
@@ -144,7 +144,8 @@ router.post('/add', ensureAuthenticated, function(req, res, next) {
 // on edit, POST the data to MySQL.
 
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
-    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    
+    var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
     
     var oldData = _.object(colNames, req.body.old);
     var newData = _.object(colNames, req.body.new);
@@ -164,7 +165,9 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
 // on delete, POST the data to MySQL.
 
 router.post('/delete', ensureAuthenticated, function(req, res, next) {
-    var colNames = ['name', 'title', 'org', 'workPhone', 'cellPhone', 'otherPhone', 'workEmail', 'personalEmail', 'notes'];
+    
+    
+    var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
     // Lodash creates an object by combining key array and value array
     
     var data = _.object(colNames, req.body);
@@ -193,8 +196,7 @@ Current routes:
 
 '/'
 '/login'
-
-    res.status(204).end();'/sources' (see Database Section)
+'/sources' (see Database Section)
 
 */
 
