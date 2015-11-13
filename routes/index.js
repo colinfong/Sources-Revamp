@@ -113,7 +113,7 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
         .then(
             function(rows) {
                 res.render('index', {
-                    title: 'Express',
+                    title: 'Daily Bruin Sources',
                     response: rows
                 });
             })
