@@ -4,13 +4,9 @@
 Handlebars.registerHelper('map', function(text) {
     var map = {
         "name": 'Name',
-        "title": 'Title',
         "organisation": "Organisation",
-        "work-phone": "Work Phone",
-        "cell-phone": "Cell Phone",
-        "other-phone": "Other Phone",
-        "work-email": "Work Email",
-        "personal-email": "Personal Email",
+        "phones": "Phones",
+        "emails": "Emails",
         "notes": "Notes"
     };
     return map[text];
@@ -31,7 +27,7 @@ var table = $('#sourceTable').DataTable({
                 selected: true
             }).data(); // current row data
 
-            var headers = ["name", "title", "organisation", "work-phone", "cell-phone", "other-phone", "work-email", "personal-email", "notes"]; // titles of columns
+            var headers = ["name", "organisation", "phones", "emails", "notes"]; // titles of columns
 
             // render modal
             $("#modal-container").html(template({
@@ -124,8 +120,8 @@ var table = $('#sourceTable').DataTable({
         text: 'Add',
         action: function(e, dt, node, config) {
 
-            var headers = ["name", "title", "organisation", "work-phone", "cell-phone", "other-phone", "work-email", "personal-email", "notes"]; // titles of columns
-
+            var headers = ["name", "organisation", "phones", "emails", "notes"]; // titles of columns
+            
             $("#modal-container").html(template({
                 about: 'Add',
                 header: headers
