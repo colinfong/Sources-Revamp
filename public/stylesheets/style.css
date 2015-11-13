@@ -17,9 +17,27 @@
     font-family: "Century", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.warning {
+.logo {
+    height: 150px;
+    width: 150px;
+}
+
+.sources {
+    display: inline;
+    position: relative;
+    top: 20px;
+    left: 10px;
     color: #777777;
-    font-size: 10px;
+    font-size: 60px;
+    margin-top: 40px;
+    border-radius:100px;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.description {
+    position: relative;
+    top: -40px;
+    color: #444444;
 }
 
 .button {
@@ -47,7 +65,7 @@
     text-decoration:none;
     text-shadow:0px 1px 0px #ffffff;
 }
-.myButton:hover {
+.button:hover {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
     background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
     background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
@@ -57,21 +75,14 @@
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
     background-color:#dfdfdf;
 }
-.myButton:active {
+.button:active {
     position:relative;
     top:1px;
 }
 
-
-.logo {
-    height: 150px;
-    width: 150px;
-}
-
-figure.login {
-    z-index: auto;
-    overflow: visible;
-    top: 50%;
+.warning {
+    color: #777777;
+    font-size: 10px;
 }
 
 figure.login:before,
