@@ -3,6 +3,13 @@
     display: table;
 }
 
+@media (min-width: 768px) {
+    .modal-editor {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
 .page {
     position: absolute;
     top: 50%;
