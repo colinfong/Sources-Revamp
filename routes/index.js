@@ -47,7 +47,7 @@ var Profile = google.oauth2('v2'); // to obtain profile details
 
 var oauth2Client = new OAuth2(configAuth.oauth.client_id,
     configAuth.oauth.client_secret,
-    'http://127.0.0.1:3000/auth/google/callback'); // OAuth2 client to handle grunt work
+    'http://sources.dailybruin.com/auth/google/callback'); // OAuth2 client to handle grunt work
 
 // called when we want to begin authentication.
 router.get('/auth/google', function(req, res) {
