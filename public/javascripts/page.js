@@ -4,7 +4,7 @@
 Handlebars.registerHelper('map', function(text) {
     var map = {
         "name": 'Name',
-        "organisation": "Organisation",
+        "organisation": "Organization",
         "phones": "Phones",
         "emails": "Emails",
         "notes": "Notes"
@@ -173,8 +173,8 @@ table.on('select', function() {
         selected: true
     }).count();
 
-    table.button(0).enable(selectedRows > 0);
-    table.button(1).enable(selectedRows > 0);
+    table.button(0).enable(selectedRows == 1);
+    table.button(1).enable(selectedRows == 1);
 });
 
 table.on('deselect', function() {
