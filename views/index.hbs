@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Sources</h1>
-            <p>A list of people who are known sources for the Daily Bruin.</p>
+            <p>A list of people who are known sources for the Daily Bruin. <a href="https://www.datatables.net/license/mit">DataTables MIT License</a></p>
             <table id="sourceTable" class="table table-striped">
                 <thead>
                     <tr>
@@ -30,13 +30,6 @@
         </div>
     </div>
 </div>
-<footer>
-        <div>
-            <span class="foss-attr">
-        <a href="https://www.datatables.net/license/mit">DataTables MIT License</a>
-        </span>
-        </div>
-</footer>
 <!--custom modal; the \ are necessary to prevent the server from trying to fill them up-->
 <script type="text/x-handlebars" id="modal-template">
     <div id="myModal" class="modal fade" role="dialog">
@@ -50,13 +43,14 @@
                     \{{#if delete}}
                     <p>Are you sure you want to delete this row?</p>
                     <button class="btn btn-default submit">Yes</button>
-                    \{{else}} \{{#each header}}
+                    \{{else}} 
+                    \{{#each header}}
                     <div class="form-group">
                         <label>\{{map this}}</label>
                         <input class="form-control" id="\{{this}}">
                     </div>
                     \{{/each}}
-                    <p><b>At least one field must be complete.</b></p>
+                    <p><b>NO FIELD CAN BE LEFT BLANK!</b></p>
                     <button class="btn btn-default submit">Submit</button>
                     \{{/if}}
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>

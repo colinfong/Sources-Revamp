@@ -127,6 +127,11 @@ var table = $('#sourceTable').DataTable({
                 header: headers
             }));
 
+            // populate modal fields
+            for (var i = 0; i < headers.length; i++) {
+                    $("#" + headers[i]).val("N/A");
+            }
+
             // display modal
             $("#myModal").modal();
 
