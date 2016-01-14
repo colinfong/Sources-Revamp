@@ -14,6 +14,8 @@ var knex = require('knex')({
     connection: configAuth.database
 });
 
+// Use Let's Encrypt: https://github.com/Daplie/node-letsencrypt
+
 var router = express.Router();
 // the following are needed to ensure JSON data sent through POST
 // requests are correctly decoded.
