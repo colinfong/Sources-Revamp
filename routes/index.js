@@ -17,7 +17,7 @@ var knex = require('knex')({
 var router = express.Router();
 // the following are needed to ensure JSON data sent through POST
 // requests are correctly decoded.
-router.use(bodyParser.json()); 
+router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -127,9 +127,9 @@ router.get('/sources', ensureAuthenticated, function(req, res) {
 
 router.post('/add', ensureAuthenticated, function(req, res, next) {
     var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
-    
+
     var data = _.object(colNames, req.body);
-    
+
     knex('sources').insert(data)
         .then(function(array) {
             console.log(array);
@@ -144,12 +144,12 @@ router.post('/add', ensureAuthenticated, function(req, res, next) {
 // on edit, POST the data to MySQL.
 
 router.post('/edit', ensureAuthenticated, function(req, res, next) {
-    
+
     var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
-    
+
     var oldData = _.object(colNames, req.body.old);
     var newData = _.object(colNames, req.body.new);
-    
+
     knex('sources').where(oldData)
         .update(newData)
         .then(function(num) {
@@ -165,13 +165,13 @@ router.post('/edit', ensureAuthenticated, function(req, res, next) {
 // on delete, POST the data to MySQL.
 
 router.post('/delete', ensureAuthenticated, function(req, res, next) {
-    
-    
+
+
     var colNames = ['name', 'org', 'phones', 'emails', 'notes'];
     // Lodash creates an object by combining key array and value array
-    
+
     var data = _.object(colNames, req.body);
-    
+
     knex('sources')
         .where(data)
         .del()

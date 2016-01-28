@@ -1,13 +1,3 @@
-.foss-attr {
-    margin: 0 auto;
-    display: table;
-    position: absolute;
-    bottom: 0;
-    width:100%;
-    text-align:center;
-    font-family: "Century", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 @media (min-width: 768px) {
     .modal-editor {
         width: 90%;

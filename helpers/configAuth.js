@@ -1,4 +1,11 @@
-/* In production: put this file under .gitignore! */ 
+/* 
+
+This file handles all authentication components with the database
+and Google. 
+
+In production: put this file under .gitignore! 
+
+*/ 
 
 var configs = {
     database:{
