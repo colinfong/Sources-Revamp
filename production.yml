@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db_service:
+    image: mysql:5.7
+    environment:
+      # lets us set up a mysql database
+      MYSQL_ROOT_PASSWORD: badpassword
+      MYSQL_USER: db
+      MYSQL_PASSWORD: bruins111
+      MYSQL_DATABASE: test
+
+  web_service:
+    build: .
+    links:
+      - db_service
+    ports:
+      - "80:80"

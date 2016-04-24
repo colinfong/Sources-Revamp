@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db_service:
+    image: mysql:5.7
+    environment:
+      # set up a mysql database by passing env variables
+      MYSQL_ROOT_PASSWORD: badpassword
+      MYSQL_USER: db
+      MYSQL_PASSWORD: bruins111
+      MYSQL_DATABASE: test
+    volumes:
+      - ./sql-init-dump:/docker-entrypoint-initdb.d
+
+  web_service:
+    build: .
+    links:
+      - db_service
+    ports:
+      - "80:80"

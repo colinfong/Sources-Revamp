@@ -1,0 +1,35 @@
+DOCKER-COMPOSE
+--------------------------------------------------------------------------------
+There's a known bug when running docker-compose up:
+Sometimes the mysql container will not be finished initializing when the sources
+container requests a connection. In such cases, the docker-compose logs will
+have an entry from the sources container that looks like
+	Knex:Error Pool2 - Error: connect ECONNREFUSED
+and will log the error
+	Error: Pool was destroyed
+upon attempting to access the mysql database.
+
+This generally happens only the first time that the mysql container is run after
+being built because the mysql image configures itself during its first run.
+After that mysql starts sufficiently quickly that when sources requests a
+connection mysql is ready. It's certainly a race condition.
+
+Anyway, the solution is to run
+	$ docker-compose create db_service
+	$ docker-compose start db_service
+then check out the logs using
+	$ docker-compose logs
+and wait until mysql reports the all clear.
+
+Then run
+	$ docker-compose create web_service
+	$ docker-compose start web_service
+and check https://localhost:80 to see that it worked.
+
+Check out http://stackoverflow.com/questions/31746182/ for discussion about this
+problem.
+
+Note: Google OAuth will give you trouble if you're running docker on a virtual
+machine (eg. if you're testing on Windows). The solution is to edit the hosts
+file Windows equivalent and redirect requests for localhost to your docker
+machines local IP. Or just use Linux.
