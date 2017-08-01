@@ -6,17 +6,16 @@ and Google.
 In production: put this file under .gitignore! 
 
 */ 
-
 var configs = {
     database:{
-        host: 'localhost',
-        user: 'dailybruin',
-        password: 'panda',
-        database: 'production'
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PWD,
+        database: process.env.MYSQL_DATABASE
     },
     oauth: {
-        client_id: "889212837753-1suidtgc0316keefupief7neoin4ml03.apps.googleusercontent.com",
-        client_secret: "VDV9y8dTdrRS7zz4Ax53i5rT"
+        client_id: process.env.G_CLIENT_ID,
+        client_secret: process.env.G_CLIENT_SECRET
     }
 };
 
