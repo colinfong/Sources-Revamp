@@ -24,9 +24,9 @@ router.use(
   })
 );
 
-/* 
+/*
 
-ALL AUTHENTICATION HAPPENS HERE 
+ALL AUTHENTICATION HAPPENS HERE
 
 This section includes the entire OAuth flow, and subsequent
 verification processes. DO NOT MESS WITH THIS unless you wish
@@ -35,7 +35,7 @@ to address a TODO.
 Routes:
 
 '/auth/google/'
-'auth/google/callback' 
+'auth/google/callback'
 
 Functions:
 
@@ -96,9 +96,9 @@ function ensureAuthenticated(req, res, next) {
   );
 }
 
-/* 
+/*
 
-ALL DATABASE-SENSITIVE WORK HAPPENS HERE 
+ALL DATABASE-SENSITIVE WORK HAPPENS HERE
 
 This section includes page routes that require database connection
 requests. It also includes post requests to update database properties.
@@ -185,9 +185,9 @@ router.post('/delete', ensureAuthenticated, (req, res) => {
 // We don't use a method to update MySQL on clicking 'Add'.
 // 'Add' creates a new, useless row for now - when we have edit interface this should work correctly.
 
-/* 
+/*
 
-ALL OTHER ROUTES ARE DEFINED HERE 
+ALL OTHER ROUTES ARE DEFINED HERE
 
 Current routes:
 
@@ -203,7 +203,7 @@ router.get('/login', (req, res) => {
 });
 
 // GET sources if logged in; if not, send to login.
-router.get('/', ensureAuthenticated, (req, res, next) => {
+router.get('/', ensureAuthenticated, (req, res) => {
   res.redirect('/sources');
 });
 
