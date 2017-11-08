@@ -1,34 +1,36 @@
 <div id="modal-container"></div>
 <!--Actual page content follows from here-->
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Sources</h1>
-            <p>A list of people who are known sources for the Daily Bruin. <a href="https://www.datatables.net/license/mit">DataTables MIT License</a></p>
-            <table id="sourceTable" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name of Source</th>
-                        <th>Organization</th>
-                        <th>Phones</th>
-                        <th>Emails</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each response}}
-                    <tr>
-                        <td>{{this.name}}</td>
-                        <td>{{this.org}}</td>
-                        <td>{{this.phones}}</td>
-                        <td>{{this.emails}}</td>
-                        <td>{{this.notes}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Sources</h1>
+      <p>A list of people who are known sources for the Daily Bruin.
+        <a href="https://www.datatables.net/license/mit">DataTables MIT License</a>
+      </p>
+      <table id="sourceTable" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name of Source</th>
+            <th>Organization</th>
+            <th>Phones</th>
+            <th>Emails</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for response in responses %}
+          <tr>
+            <td>{{ response.name }}</td>
+            <td>{{ response.org }}</td>
+            <td>{{ response.phones }}</td>
+            <td>{{ response.emails }}</td>
+            <td>{{ response.notes }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 <!--This loads DataTables, jQuery and Bootstrap simultaneously-->
 <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.9,b-1.0.3,r-1.0.7,se-1.0.1/datatables.min.js"></script>
@@ -46,7 +48,7 @@
                     \{{#if delete}}
                     <p>Are you sure you want to delete this row?</p>
                     <button class="btn btn-default submit">Yes</button>
-                    \{{else}} 
+                    \{{else}}
                     \{{#each header}}
                     <div class="form-group">
                         <label>\{{map this}}</label>
