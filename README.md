@@ -1,4 +1,4 @@
-# Sources-Revamp
+# Sources
 
 A redo of the current internal [sources website](sources.dailybruin.com) to:
 

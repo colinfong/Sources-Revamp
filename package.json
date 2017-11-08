@@ -1,5 +1,5 @@
 {
-  "name": "DBSources",
+  "name": "Sources",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,10 @@
   },
   "eslintConfig": {
     "extends": "uclaradio"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "lint-staged": {
     "*.{js,json,css}": ["prettier --write", "git add"]
